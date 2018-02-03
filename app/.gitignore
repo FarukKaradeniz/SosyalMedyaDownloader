@@ -1,2 +1,4 @@
 /build
 /src/main/res/values/secret.xml
+/src/main/res/font/.xml
+/src/main/res/values/font_certs.xml

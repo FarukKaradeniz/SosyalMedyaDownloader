@@ -6,4 +6,5 @@
     <string name="address_send">SEND</string>
     <string name="radio_twitter">Twitter</string>
     <string name="radio_other">Other</string>
+    <string name="download">download</string>
 </resources>
