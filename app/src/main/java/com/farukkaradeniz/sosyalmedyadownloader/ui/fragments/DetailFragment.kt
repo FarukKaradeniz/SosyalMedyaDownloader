@@ -1,21 +1,22 @@
 package com.farukkaradeniz.sosyalmedyadownloader.ui.fragments
 
+import android.Manifest
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.farukkaradeniz.sosyalmedyadownloader.R
+import com.farukkaradeniz.sosyalmedyadownloader.isPermissionGranted
 import com.farukkaradeniz.sosyalmedyadownloader.model.TweetRepositoryImpl
 import com.farukkaradeniz.sosyalmedyadownloader.model.data.Tweet
 import com.farukkaradeniz.sosyalmedyadownloader.model.data.TweetMediaVariant
 import com.farukkaradeniz.sosyalmedyadownloader.presenters.DetailPresenter
 import com.farukkaradeniz.sosyalmedyadownloader.presenters.DetailPresenterImpl
+import com.farukkaradeniz.sosyalmedyadownloader.requestPermission
 import com.farukkaradeniz.sosyalmedyadownloader.setImage
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_detail.*
 
@@ -31,6 +32,7 @@ class DetailFragment : Fragment(), DetailView {
     private var website: String? = null
     private lateinit var presenter: DetailPresenter
     private lateinit var mediaList: List<TweetMediaVariant>
+    private val requestId = 100
 
     companion object {
         private val ARG_PARAM1 = "param1"
@@ -53,6 +55,7 @@ class DetailFragment : Fragment(), DetailView {
             mediaURL = arguments?.getString(ARG_PARAM1)
         }
     }
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_detail, container, false)
     }
@@ -87,8 +90,7 @@ class DetailFragment : Fragment(), DetailView {
             btn_download.setOnClickListener {
                 if (mediaList.isNotEmpty()) {
                     val position = spn_media_quality.selectedItemPosition
-                    presenter.downloadMedia(mediaList[position].mediaUrl)
-                    btn_download.isEnabled = false
+                    download(mediaList[position].mediaUrl)
                 }
             }
         }
@@ -110,8 +112,7 @@ class DetailFragment : Fragment(), DetailView {
         img_media.setImage(list[0])
         btn_download.setOnClickListener {
             val link = list[1]
-            presenter.downloadMedia(link)
-            btn_download.isEnabled = false
+            download(link)
         }
 
     }
@@ -131,4 +132,16 @@ class DetailFragment : Fragment(), DetailView {
     override fun showToast(msg: String) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
     }
+
+    private fun download(link: String) {
+        //Eger kullanici diske yazmak icin izin vermediyse izin istenilir.
+        if (!context.isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            context.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, requestId)
+        }
+        else { //kullanici diske yazma iznini verdiyse indirme islemi baslatilir
+        presenter.downloadMedia(link)
+        btn_download.isEnabled = false
+        }
+    }
+
 }
