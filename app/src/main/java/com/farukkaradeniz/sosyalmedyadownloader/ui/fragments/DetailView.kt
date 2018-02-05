@@ -10,7 +10,7 @@ import com.farukkaradeniz.sosyalmedyadownloader.model.data.Tweet
  * Website: farukkaradeniz.com
  */
 interface DetailView {
-    fun updateTwitterUI(tweet: Tweet)
+    fun updateTwitterUI(tweet: Tweet, list: List<String?>)
     fun updateGifUI(list: List<String>)
     fun hideProgressBar()
     fun showProgressBar()

@@ -1,6 +1,5 @@
 package com.farukkaradeniz.sosyalmedyadownloader.presenters
 
-import android.util.Log
 import com.downloader.Error
 import com.downloader.OnDownloadListener
 import com.downloader.PRDownloader
@@ -8,6 +7,7 @@ import com.farukkaradeniz.sosyalmedyadownloader.Constants
 import com.farukkaradeniz.sosyalmedyadownloader.events.EmptyEvent
 import com.farukkaradeniz.sosyalmedyadownloader.model.BaseRepository
 import com.farukkaradeniz.sosyalmedyadownloader.model.TweetRepository
+import com.farukkaradeniz.sosyalmedyadownloader.model.data.Tweet
 import com.farukkaradeniz.sosyalmedyadownloader.ui.fragments.DetailView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -49,7 +49,12 @@ class DetailPresenterImpl(val view: DetailView, val repository: BaseRepository, 
                 .subscribe(
                         {
                             view.hideProgressBar()
-                            view.updateTwitterUI(it)
+                            val regex = """(\d{2,4}x\d{2,4})""".toRegex()
+                            view.updateTwitterUI(it, it.mediaVariant
+                                    .filter { it.type == "video/mp4" }
+                                    .filter { it.bitrate != 0 }
+                                    .sortedBy { it.bitrate }
+                                    .map { regex.find(it.mediaUrl)?.value })
                         },
                         {
                             view.showToast(it.message!!)

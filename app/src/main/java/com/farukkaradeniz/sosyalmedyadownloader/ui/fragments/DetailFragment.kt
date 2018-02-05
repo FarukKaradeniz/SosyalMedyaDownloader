@@ -73,17 +73,12 @@ class DetailFragment : Fragment(), DetailView {
         presenter.loadMedia(mediaURL!!)
     }
 
-    override fun updateTwitterUI(tweet: Tweet) {
+    override fun updateTwitterUI(tweet: Tweet, list: List<String?>) {
         img_media.setImage(tweet.mediaUrl)
         if (tweet.type == "video") {
             txt_media_duration.text = tweet.duration.toString()
             txt_media_type.text = "Video"
-            val regex = """(\d{2,4}x\d{2,4})""".toRegex()
             mediaList = tweet.mediaVariant
-                    .filter { it.type == "video/mp4" }
-                    .filter { it.bitrate != 0 }
-                    .sortedBy { it.bitrate }
-            val list = mediaList.map { regex.find(it.mediaUrl)?.value }
             val adapter = ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, list)
             spn_media_quality.adapter = adapter
 
