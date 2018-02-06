@@ -38,15 +38,17 @@
 
     <Button
         android:id="@+id/btn_send_address"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:background="@drawable/button_style"
         android:fontFamily="@font/raleway_light"
         android:text="@string/address_send"
-        android:textColor="#000"
-        android:textSize="16sp"
+        android:textColor="#EDEDED"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/edt_address"
         app:layout_constraintStart_toStartOf="@+id/edt_address"
         app:layout_constraintTop_toBottomOf="@+id/edt_address" />
