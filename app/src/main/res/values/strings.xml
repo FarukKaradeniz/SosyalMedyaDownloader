@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">SosyalMedyaDownloader</string>
+    <string name="app_name" translatable="false">SosyalMedyaDownloader</string>
     <string name="enter_address">Please Enter the Address</string>
     <string name="enter_address_twitter">Please Enter the Tweet ID</string>
     <string name="enter_address_other">Please Enter OTHER</string>
     <string name="address_send">SEND</string>
-    <string name="radio_twitter">Twitter</string>
-    <string name="radio_other">Other</string>
+    <string name="radio_twitter" translatable="false">Twitter</string>
+    <string name="radio_other" translatable="false">Other</string>
     <string name="download">download</string>
 </resources>

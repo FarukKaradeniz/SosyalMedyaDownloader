@@ -48,7 +48,7 @@
         android:background="@drawable/button_style"
         android:fontFamily="@font/raleway_light"
         android:text="@string/address_send"
-        android:textColor="#EDEDED"
+        android:textColor="@color/button_text_color"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
