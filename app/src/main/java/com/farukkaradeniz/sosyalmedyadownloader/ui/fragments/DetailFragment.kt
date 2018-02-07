@@ -76,7 +76,7 @@ class DetailFragment : Fragment(), DetailView {
     override fun updateTwitterUI(tweet: Tweet, list: List<String?>) {
         img_media.setImage(tweet.mediaUrl)
         if (tweet.type == "video") {
-            txt_media_duration.text = tweet.duration.toString()
+            txt_media_duration.text = tweet.videoDuration
             txt_media_type.text = "Video"
             mediaList = tweet.mediaVariant
             val adapter = ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, list)
