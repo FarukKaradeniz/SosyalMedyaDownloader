@@ -40,7 +40,12 @@ class InputFragment : Fragment() {
         btn_send_address.setOnClickListener {
             if (radio_twitter.isChecked) { //Eger twitter secili ise
                 val twitterLink = edt_address.editableText.toString()
-                EventBus.getDefault().post(LinkEvent(Constants.TWITTER, twitterLink))
+                if (twitterLink.isNotEmpty()) {
+                    EventBus.getDefault().post(LinkEvent(Constants.TWITTER, twitterLink))
+                }
+                else {
+                    Toast.makeText(context, "Text cannot be empty", Toast.LENGTH_SHORT).show()
+                }
             }
             else {
                 Toast.makeText(context, "Soon...", Toast.LENGTH_SHORT).show()

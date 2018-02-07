@@ -6,4 +6,5 @@
     <string name="enter_address_other">Lütfen Diğeri Giriniz</string>
     <string name="address_send">Gönder</string>
     <string name="download">indir</string>
+    <string name="empty_text">Giriş metni boş olamaz</string>
 </resources>

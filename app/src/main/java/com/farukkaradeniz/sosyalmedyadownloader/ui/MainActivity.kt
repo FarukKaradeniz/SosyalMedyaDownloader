@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     fun onLinkEvent(event: LinkEvent) {
         supportFragmentManager
                 .beginTransaction()
+                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                 .replace(R.id.lay_main_wrapper, DetailFragment.newInstance(event.website, event.mediaURL), "DETAIL")
                 .addToBackStack("ReplaceInputWithDetail")
                 .commit()
