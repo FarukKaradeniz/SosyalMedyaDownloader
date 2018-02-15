@@ -17,7 +17,6 @@ import java.net.URL
 class TweetRepositoryImpl(key: String, secret: String): TweetRepository {
     private val twitterApi: TwitterApi = TwitterApi(key, secret)
 
-
     override fun getTweet(id: Long): Observable<Tweet> {
         return Observable.create {
             e ->
@@ -47,16 +46,6 @@ class TweetRepositoryImpl(key: String, secret: String): TweetRepository {
                 e.onError(Throwable("Input is not valid."))
             }
             e.onComplete()
-        }
-    }
-
-    private fun downloadHtmlPage(url: String): String {
-        try {
-            val connection = URL(url).openConnection()
-            return connection.getInputStream().bufferedReader().readText()
-        }catch (e: Exception) {
-            println(e.message)
-            return ""
         }
     }
 
