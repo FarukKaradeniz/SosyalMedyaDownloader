@@ -8,15 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import com.farukkaradeniz.sosyalmedyadownloader.R
-import com.farukkaradeniz.sosyalmedyadownloader.isPermissionGranted
+import com.farukkaradeniz.sosyalmedyadownloader.*
+import com.farukkaradeniz.sosyalmedyadownloader.model.InstagramRepositoryImpl
 import com.farukkaradeniz.sosyalmedyadownloader.model.TweetRepositoryImpl
+import com.farukkaradeniz.sosyalmedyadownloader.model.data.InstagramPost
 import com.farukkaradeniz.sosyalmedyadownloader.model.data.Tweet
 import com.farukkaradeniz.sosyalmedyadownloader.model.data.TweetMediaVariant
 import com.farukkaradeniz.sosyalmedyadownloader.presenters.DetailPresenter
 import com.farukkaradeniz.sosyalmedyadownloader.presenters.DetailPresenterImpl
-import com.farukkaradeniz.sosyalmedyadownloader.requestPermission
-import com.farukkaradeniz.sosyalmedyadownloader.setImage
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_detail.*
 
@@ -33,11 +32,9 @@ class DetailFragment : Fragment(), DetailView {
     private lateinit var presenter: DetailPresenter
     private lateinit var mediaList: List<TweetMediaVariant>
     private val requestId = 100
-
     companion object {
         private val ARG_PARAM1 = "param1"
         private val ARG_PARAM2 = "param2"
-
         fun newInstance(website: String, mediaURL: String): DetailFragment {
             val fragment = DetailFragment()
             val args = Bundle()
@@ -69,7 +66,12 @@ class DetailFragment : Fragment(), DetailView {
         super.onViewCreated(view, savedInstanceState)
         val key: String = context.getString(R.string.twitter_consumer_key)
         val secret: String = context.getString(R.string.twitter_consumer_secret)
-        presenter = DetailPresenterImpl(this, TweetRepositoryImpl(key, secret), website!!)
+        if (website!! == Constants.TWITTER) {
+            presenter = DetailPresenterImpl(this, TweetRepositoryImpl(key, secret), website!!)
+        }
+        else if (website!! == Constants.INSTAGRAM) {
+            presenter = DetailPresenterImpl(this, InstagramRepositoryImpl(), website!!)
+        }
         presenter.loadMedia(mediaURL!!)
     }
 
@@ -85,7 +87,7 @@ class DetailFragment : Fragment(), DetailView {
             btn_download.setOnClickListener {
                 if (mediaList.isNotEmpty()) {
                     val position = spn_media_quality.selectedItemPosition
-                    download(mediaList[position].mediaUrl)
+                    download(mediaList[position].mediaUrl, "mp4")
                 }
             }
         }
@@ -107,7 +109,7 @@ class DetailFragment : Fragment(), DetailView {
         img_media.setImage(list[0])
         btn_download.setOnClickListener {
             val link = list[1]
-            download(link)
+            download(link, "mp4")
         }
 
     }
@@ -128,15 +130,32 @@ class DetailFragment : Fragment(), DetailView {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
     }
 
-    private fun download(link: String) {
+    private fun download(link: String, mediaExtension: String) {
         //Eger kullanici diske yazmak icin izin vermediyse izin istenilir.
         if (!context.isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             context.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, requestId)
         }
         else { //kullanici diske yazma iznini verdiyse indirme islemi baslatilir
-        presenter.downloadMedia(link)
+        presenter.downloadMedia(link, mediaExtension)
         btn_download.isEnabled = false
         }
     }
 
+    override fun updateInstagramUI(post: InstagramPost) {
+        img_media.setImage(post.previewImageUrl)
+        spn_media_quality.isEnabled = false
+        txt_media_duration.text = post.duration
+        if (post.type == "video") {
+            txt_media_type.text = "Video"
+            btn_download.setOnClickListener {
+                download(post.videoUrl ?: "", "mp4")
+            }
+        }
+        else { //image
+            txt_media_type.text = "Photo"
+            btn_download.setOnClickListener {
+                download(post.previewImageUrl, post.previewImageUrl.takeLastWhile { it != '.' })
+            }
+        }
+    }
 }

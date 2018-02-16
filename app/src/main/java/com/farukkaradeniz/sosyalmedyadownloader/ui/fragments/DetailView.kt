@@ -1,5 +1,6 @@
 package com.farukkaradeniz.sosyalmedyadownloader.ui.fragments
 
+import com.farukkaradeniz.sosyalmedyadownloader.model.data.InstagramPost
 import com.farukkaradeniz.sosyalmedyadownloader.model.data.Tweet
 
 /**
@@ -12,6 +13,7 @@ import com.farukkaradeniz.sosyalmedyadownloader.model.data.Tweet
 interface DetailView {
     fun updateTwitterUI(tweet: Tweet, list: List<String?>)
     fun updateGifUI(list: List<String>)
+    fun updateInstagramUI(post: InstagramPost)
     fun hideProgressBar()
     fun showProgressBar()
     fun showToast(msg: String)

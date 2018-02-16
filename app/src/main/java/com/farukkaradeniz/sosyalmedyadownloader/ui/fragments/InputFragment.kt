@@ -31,6 +31,7 @@ class InputFragment : Fragment() {
         radioGroup.setOnCheckedChangeListener { _, id ->
             when(id) {
                 R.id.radio_twitter -> txt_enter_address.text = context.getString(R.string.enter_address_twitter)
+                R.id.radio_instagram -> txt_enter_address.text = getString(R.string.enter_address_instagram)
                 R.id.radio_other -> txt_enter_address.text = context.getString(R.string.enter_address_other)
                 else -> txt_enter_address.text = context.getString(R.string.enter_address)
             }
@@ -42,6 +43,15 @@ class InputFragment : Fragment() {
                 val twitterLink = edt_address.editableText.toString()
                 if (twitterLink.isNotEmpty()) {
                     EventBus.getDefault().post(LinkEvent(Constants.TWITTER, twitterLink))
+                }
+                else {
+                    Toast.makeText(context, "Text cannot be empty", Toast.LENGTH_SHORT).show()
+                }
+            }
+            else if (radio_instagram.isChecked) {
+                val instagramLink = edt_address.editableText.toString()
+                if (instagramLink.isNotEmpty()) {
+                    EventBus.getDefault().post(LinkEvent(Constants.INSTAGRAM, instagramLink))
                 }
                 else {
                     Toast.makeText(context, "Text cannot be empty", Toast.LENGTH_SHORT).show()

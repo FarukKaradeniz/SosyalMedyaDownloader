@@ -79,6 +79,18 @@
             android:textSize="18sp" />
 
         <RadioButton
+            android:id="@+id/radio_instagram"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:duplicateParentState="false"
+            android:fontFamily="@font/lato_light_italic"
+            android:padding="12dp"
+            android:text="@string/radio_instagram"
+            android:textAllCaps="false"
+            android:textColor="#000"
+            android:textSize="18sp" />
+        <RadioButton
             android:id="@+id/radio_other"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

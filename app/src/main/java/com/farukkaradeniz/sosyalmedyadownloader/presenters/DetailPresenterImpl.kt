@@ -6,6 +6,8 @@ import com.downloader.PRDownloader
 import com.farukkaradeniz.sosyalmedyadownloader.Constants
 import com.farukkaradeniz.sosyalmedyadownloader.events.EmptyEvent
 import com.farukkaradeniz.sosyalmedyadownloader.model.BaseRepository
+import com.farukkaradeniz.sosyalmedyadownloader.model.InstagramRepository
+import com.farukkaradeniz.sosyalmedyadownloader.model.InstagramRepositoryImpl
 import com.farukkaradeniz.sosyalmedyadownloader.model.TweetRepository
 import com.farukkaradeniz.sosyalmedyadownloader.model.data.Tweet
 import com.farukkaradeniz.sosyalmedyadownloader.ui.fragments.DetailView
@@ -22,6 +24,8 @@ import java.util.*
  * Website: farukkaradeniz.com
  */
 class DetailPresenterImpl(val view: DetailView, val repository: BaseRepository, val website: String): DetailPresenter {
+    //Composite Subscriber eklenecek, onstart onstop methodlarında subscribe unsubscribe cagirilacak
+
     /**
      * Verilen link icin medya yukleme fonksiyonu cagirilir, hata olursa ekrana
      * toast mesaji gosterilir
@@ -30,6 +34,7 @@ class DetailPresenterImpl(val view: DetailView, val repository: BaseRepository, 
         try {
             when(website) {
                 Constants.TWITTER -> loadTweet(extractTwitterId(link), repository as TweetRepository)
+                Constants.INSTAGRAM -> loadInstagramPost(link)
                 else -> view.showToast("Error Loading Media!")
             }
         }catch (e: Exception) {
@@ -78,7 +83,8 @@ class DetailPresenterImpl(val view: DetailView, val repository: BaseRepository, 
                         },
                         {
                             view.showToast(it.message!!)
-                            EventBus.getDefault().post(EmptyEvent())}
+                            EventBus.getDefault().post(EmptyEvent())
+                        }
                 )
     }
 
@@ -94,8 +100,8 @@ class DetailPresenterImpl(val view: DetailView, val repository: BaseRepository, 
     /**
      * Verilen linkteki mp4 dosyasi indirilir.
      */
-    override fun downloadMedia(link: String) {
-        val filename = Date().time.toString() + ".mp4"
+    override fun downloadMedia(link: String, mediaExtension: String) {
+        val filename = Date().time.toString() + "." + mediaExtension
         PRDownloader.download(link, Constants.DOWNLOAD_DIRECTORY, filename)
                 .build()
                 .setOnStartOrResumeListener {
@@ -111,4 +117,22 @@ class DetailPresenterImpl(val view: DetailView, val repository: BaseRepository, 
                     }
                 })
     }
+
+    private fun loadInstagramPost(link: String) {
+        view.showProgressBar()
+        (repository as InstagramRepository).getInstagramPost(link)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {
+                            view.hideProgressBar()
+                            view.updateInstagramUI(it)
+                        },
+                        {
+                            view.showToast(it.message ?: "Error")
+                            EventBus.getDefault().post(EmptyEvent())
+                        }
+                )
+    }
+
 }

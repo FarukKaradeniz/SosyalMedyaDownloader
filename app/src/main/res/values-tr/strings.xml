@@ -3,6 +3,7 @@
     <string name="app_name">SosyalMedyaDownloader</string>
     <string name="enter_address">Lütfen Adresi Giriniz</string>
     <string name="enter_address_twitter">Lütfen Tweet ID\'sini Giriniz</string>
+    <string name="enter_address_instagram">Lütfen Instagram Url Adresini Giriniz</string>
     <string name="enter_address_other">Lütfen Diğeri Giriniz</string>
     <string name="address_send">Gönder</string>
     <string name="download">indir</string>

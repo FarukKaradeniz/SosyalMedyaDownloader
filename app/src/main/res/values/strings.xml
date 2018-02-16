@@ -5,7 +5,9 @@
     <string name="enter_address_other">Please Enter OTHER</string>
     <string name="address_send">SEND</string>
     <string name="radio_twitter" translatable="false">Twitter</string>
+    <string name="radio_instagram" translatable="false">Instagram</string>
     <string name="radio_other" translatable="false">Other</string>
     <string name="download">download</string>
     <string name="empty_text">Text cannot be empty</string>
+    <string name="enter_address_instagram">Please Enter the Instagram Url</string>
 </resources>
