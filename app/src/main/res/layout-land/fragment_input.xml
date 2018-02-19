@@ -9,8 +9,8 @@
 
     <EditText
         android:id="@+id/edt_address"
-        android:layout_width="340dp"
-        android:layout_height="121dp"
+        android:layout_width="328dp"
+        android:layout_height="92dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
@@ -27,7 +27,6 @@
         android:layout_width="wrap_content"
         android:layout_height="32dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:fontFamily="@font/lato_light_italic"
         android:text="@string/enter_address"
         android:textAllCaps="true"
@@ -44,7 +43,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/button_style"
         android:fontFamily="@font/raleway_light"
         android:text="@string/address_send"
@@ -63,7 +62,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -97,6 +96,7 @@
             android:textAllCaps="false"
             android:textColor="#000"
             android:textSize="18sp" />
+
         <RadioButton
             android:id="@+id/radio_other"
             android:layout_width="wrap_content"
