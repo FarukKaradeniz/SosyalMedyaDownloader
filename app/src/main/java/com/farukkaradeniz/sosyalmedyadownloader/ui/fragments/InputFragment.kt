@@ -27,41 +27,26 @@ class InputFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        radioGroup.clearCheck()
-        radioGroup.setOnCheckedChangeListener { _, id ->
-            when(id) {
-                R.id.radio_twitter -> txt_enter_address.text = context.getString(R.string.enter_address_twitter)
-                R.id.radio_instagram -> txt_enter_address.text = getString(R.string.enter_address_instagram)
-                R.id.radio_other -> txt_enter_address.text = context.getString(R.string.enter_address_other)
-                else -> txt_enter_address.text = context.getString(R.string.enter_address)
-            }
-        }
-        radio_twitter.isChecked = true
-        edt_address.setText("")
         btn_send_address.setOnClickListener {
-            if (radio_twitter.isChecked) { //Eger twitter secili ise
-                val twitterLink = edt_address.editableText.toString()
-                if (twitterLink.isNotEmpty()) {
-                    EventBus.getDefault().post(LinkEvent(Constants.TWITTER, twitterLink))
-                }
-                else {
-                    Toast.makeText(context, "Text cannot be empty", Toast.LENGTH_SHORT).show()
-                }
+            val text = edt_address.text.toString()
+            val event = when {
+                "twitter" in text -> Constants.TWITTER
+                "instagram" in text -> Constants.INSTAGRAM
+                text.isEmpty() -> ""
+                else -> getString(R.string.invalid_input)
             }
-            else if (radio_instagram.isChecked) {
-                val instagramLink = edt_address.editableText.toString()
-                if (instagramLink.isNotEmpty()) {
-                    EventBus.getDefault().post(LinkEvent(Constants.INSTAGRAM, instagramLink))
+            when {
+                event.isEmpty() -> {
+                    Toast.makeText(context, getString(R.string.empty_text), Toast.LENGTH_SHORT).show()
                 }
-                else {
-                    Toast.makeText(context, "Text cannot be empty", Toast.LENGTH_SHORT).show()
+                event == getString(R.string.invalid_input) -> {
+                    Toast.makeText(context, getString(R.string.invalid_input), Toast.LENGTH_SHORT).show()
                 }
-            }
-            else {
-                Toast.makeText(context, "Soon...", Toast.LENGTH_SHORT).show()
+                else -> {
+                    EventBus.getDefault().post(LinkEvent(event, text))
+                }
             }
         }
-
     }
 
     override fun onDestroyView() {
