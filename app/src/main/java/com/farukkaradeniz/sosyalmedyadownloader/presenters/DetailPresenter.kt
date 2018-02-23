@@ -12,4 +12,5 @@ interface DetailPresenter {
     fun extractTwitterId(link: String): Long
     fun loadGifLinks(id: Long)
     fun downloadMedia(link: String, mediaExtension: String)
+    fun unsubscribe()
 }

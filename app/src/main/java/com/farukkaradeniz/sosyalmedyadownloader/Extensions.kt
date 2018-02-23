@@ -6,6 +6,8 @@ import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 /**
  * Created by Faruk Karadeniz on 2.02.2018.
@@ -25,3 +27,6 @@ fun Context.isPermissionGranted(permission: String) =
 
 fun Context.requestPermission(permission: String, requestId: Int) =
         ActivityCompat.requestPermissions(this as AppCompatActivity, arrayOf(permission), requestId)
+
+fun Disposable.addTo(disposable: CompositeDisposable) =
+        disposable.add(this)

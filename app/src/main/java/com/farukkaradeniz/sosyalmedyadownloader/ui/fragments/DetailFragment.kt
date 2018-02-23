@@ -60,6 +60,7 @@ class DetailFragment : Fragment(), DetailView {
     override fun onDestroyView() {
         super.onDestroyView()
         clearFindViewByIdCache()
+        presenter.unsubscribe()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -4,14 +4,14 @@ import com.downloader.Error
 import com.downloader.OnDownloadListener
 import com.downloader.PRDownloader
 import com.farukkaradeniz.sosyalmedyadownloader.Constants
+import com.farukkaradeniz.sosyalmedyadownloader.addTo
 import com.farukkaradeniz.sosyalmedyadownloader.events.EmptyEvent
 import com.farukkaradeniz.sosyalmedyadownloader.model.BaseRepository
 import com.farukkaradeniz.sosyalmedyadownloader.model.InstagramRepository
-import com.farukkaradeniz.sosyalmedyadownloader.model.InstagramRepositoryImpl
 import com.farukkaradeniz.sosyalmedyadownloader.model.TweetRepository
-import com.farukkaradeniz.sosyalmedyadownloader.model.data.Tweet
 import com.farukkaradeniz.sosyalmedyadownloader.ui.fragments.DetailView
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import org.greenrobot.eventbus.EventBus
 import java.util.*
@@ -25,6 +25,7 @@ import java.util.*
  */
 class DetailPresenterImpl(val view: DetailView, val repository: BaseRepository, val website: String): DetailPresenter {
     //Composite Subscriber eklenecek, onstart onstop methodlarında subscribe unsubscribe cagirilacak
+    private val subs: CompositeDisposable = CompositeDisposable()
 
     /**
      * Verilen link icin medya yukleme fonksiyonu cagirilir, hata olursa ekrana
@@ -65,6 +66,7 @@ class DetailPresenterImpl(val view: DetailView, val repository: BaseRepository, 
                             view.showToast(it.message!!)
                             EventBus.getDefault().post(EmptyEvent())
                         })
+                .addTo(subs)
     }
 
     /**
@@ -86,6 +88,7 @@ class DetailPresenterImpl(val view: DetailView, val repository: BaseRepository, 
                             EventBus.getDefault().post(EmptyEvent())
                         }
                 )
+                .addTo(subs)
     }
 
     /**
@@ -133,6 +136,11 @@ class DetailPresenterImpl(val view: DetailView, val repository: BaseRepository, 
                             EventBus.getDefault().post(EmptyEvent())
                         }
                 )
+                .addTo(subs)
+    }
+
+    override fun unsubscribe() {
+        subs.clear()
     }
 
 }
