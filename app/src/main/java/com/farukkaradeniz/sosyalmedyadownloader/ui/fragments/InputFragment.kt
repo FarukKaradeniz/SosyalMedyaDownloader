@@ -37,10 +37,10 @@ class InputFragment : Fragment() {
             }
             when {
                 event.isEmpty() -> {
-                    Toast.makeText(context, getString(R.string.empty_text), Toast.LENGTH_SHORT).show()
+                    edt_address.error = getString(R.string.empty_text)
                 }
                 event == getString(R.string.invalid_input) -> {
-                    Toast.makeText(context, getString(R.string.invalid_input), Toast.LENGTH_SHORT).show()
+                    edt_address.error = getString(R.string.invalid_input)
                 }
                 else -> {
                     EventBus.getDefault().post(LinkEvent(event, text))
