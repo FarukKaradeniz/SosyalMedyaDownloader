@@ -1,58 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
 
-    <EditText
-        android:id="@+id/edt_address"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:fontFamily="@font/raleway_light"
-        android:inputType="textMultiLine"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_enter_address" />
-
-    <TextView
-        android:id="@+id/txt_enter_address"
-        android:layout_width="wrap_content"
-        android:layout_height="64dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="72dp"
-        android:fontFamily="@font/lato_light_italic"
-        android:text="@string/enter_address"
-        android:textAllCaps="true"
-        android:textColor="#000"
-        android:textSize="20sp"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/btn_send_address"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
         android:background="@drawable/button_style"
         android:fontFamily="@font/raleway_light"
         android:text="@string/address_send"
         android:textColor="@color/button_text_color"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/edt_address"
-        app:layout_constraintStart_toStartOf="@+id/edt_address"
-        app:layout_constraintTop_toBottomOf="@+id/edt_address" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="80dp"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/edt_address"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:fontFamily="@font/raleway_light"
+            android:hint="@string/enter_address"
+            android:inputType="textMultiLine"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="172dp" />
+    </android.support.design.widget.TextInputLayout>
 
 </android.support.constraint.ConstraintLayout>
