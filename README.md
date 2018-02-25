@@ -12,6 +12,15 @@ Uygulama sayesinde Twitter ve Instagram sosyal medya platformlarında paylaşıl
 
 ![Download Screen](/assets/uc.PNG)
 
+## Eklenmesi Planlanan Özellikler
+- İndirilen medya dosyalarının isimlendirmesinin güncellenmesi
+- İndirme işleminin bildirimlerde gösterilmesi ve kontrol edilebilmesi
+- Twitter'dan fotoğraf indirme özelliği 
+- Farklı ekran boyutları için UI güncellemesi
+
+## Bilinen Hatalar
+- Boyutu büyük dosyaları indirme sırasında 'Uygulama çalışmayı durdurdu' hatası alınabiliyor.
+
 ## Open Source Libraries
 - [RxJava](https://github.com/ReactiveX/RxJava)
 - [RxAndroid](https://github.com/ReactiveX/RxAndroid)
