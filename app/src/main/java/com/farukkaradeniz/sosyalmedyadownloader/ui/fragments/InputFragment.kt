@@ -1,11 +1,12 @@
 package com.farukkaradeniz.sosyalmedyadownloader.ui.fragments
 
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.farukkaradeniz.sosyalmedyadownloader.Constants
 import com.farukkaradeniz.sosyalmedyadownloader.R
 import com.farukkaradeniz.sosyalmedyadownloader.events.LinkEvent
@@ -45,6 +46,19 @@ class InputFragment : Fragment() {
                 else -> {
                     EventBus.getDefault().post(LinkEvent(event, text))
                 }
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val clipboardManager =
+                context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        if (clipboardManager.hasPrimaryClip()) {
+            val clipData = clipboardManager.primaryClip
+            val item = clipData.getItemAt(0)
+            if (item.text.contains(Constants.TWITTER) || item.text.contains(Constants.INSTAGRAM)){
+                edt_address.setText(item.text)
             }
         }
     }
