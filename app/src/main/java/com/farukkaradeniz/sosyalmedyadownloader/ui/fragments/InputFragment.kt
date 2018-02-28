@@ -27,6 +27,11 @@ class InputFragment : Fragment() {
         return inflater!!.inflate(R.layout.fragment_input, container, false)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        clearFindViewByIdCache()
+    }
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         btn_send_address.setOnClickListener {
             val text = edt_address.text.toString()
@@ -57,14 +62,9 @@ class InputFragment : Fragment() {
         if (clipboardManager.hasPrimaryClip()) {
             val clipData = clipboardManager.primaryClip
             val item = clipData.getItemAt(0)
-            if (item.text.contains(Constants.TWITTER) || item.text.contains(Constants.INSTAGRAM)){
+            if (item.text.contains(Constants.TWITTER) || item.text.contains(Constants.INSTAGRAM)) {
                 edt_address.setText(item.text)
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        clearFindViewByIdCache()
     }
 }

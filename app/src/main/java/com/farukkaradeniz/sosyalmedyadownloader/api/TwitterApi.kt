@@ -14,7 +14,6 @@ import twitter4j.conf.ConfigurationBuilder
  * Website: farukkaradeniz.com
  */
 class TwitterApi(private val key: String, private val secret: String) {
-
     private lateinit var twitter: Twitter
     private var isInitialized = false
 
@@ -32,8 +31,7 @@ class TwitterApi(private val key: String, private val secret: String) {
                     .setApplicationOnlyAuthEnabled(true)
                     .setOAuth2AccessToken(token.accessToken)
                     .setOAuth2TokenType(token.tokenType)
-        }
-        catch (e: TwitterException) {
+        } catch (e: TwitterException) {
             e.printStackTrace()
         }
 
@@ -47,7 +45,4 @@ class TwitterApi(private val key: String, private val secret: String) {
         }
         return twitter.showStatus(id)
     }
-
-
-
 }

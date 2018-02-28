@@ -11,21 +11,21 @@ import org.json.JSONObject
  * LinkedIn: linkedin.com/in/FarukKaradeniz
  * Website: farukkaradeniz.com
  */
-class InstagramRepositoryImpl: InstagramRepository {
+class InstagramRepositoryImpl : InstagramRepository {
     private val errorMessage = "Error no data"
+
     override fun getInstagramPost(link: String): Observable<InstagramPost> {
         return Observable.create {
             val page = downloadHtmlPage(link)
             try {
                 val post = getData(page)
                 it.onNext(post)
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 it.onError(e)
             }
             it.onComplete()
         }
     }
-
 
     private fun getData(page: String): InstagramPost {
         val jsonRegex = """(<script type="text/javascript">window._sharedData = )(.*)(;</script>)""".toRegex()
@@ -44,8 +44,7 @@ class InstagramRepositoryImpl: InstagramRepository {
         val isVideo = postData.getBoolean("is_video")
         val postType = if (isVideo) {
             "video"
-        }
-        else {
+        } else {
             "image"
         }
 
@@ -54,8 +53,7 @@ class InstagramRepositoryImpl: InstagramRepository {
                 .getString("src")
         val videoUrl = if (isVideo) {
             postData.getString("video_url")
-        }
-        else {
+        } else {
             null
         }
 

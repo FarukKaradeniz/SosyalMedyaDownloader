@@ -11,9 +11,9 @@ import android.os.Environment
  */
 class Constants {
     companion object {
-        val FIRST_TIME = "first_time"
         val TWITTER = "twitter"
-        val INSTAGRAM = "instagram" //not yet but soon
-        val DOWNLOAD_DIRECTORY = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
+        val INSTAGRAM = "instagram"
+        val DOWNLOAD_DIRECTORY =
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
     }
 }

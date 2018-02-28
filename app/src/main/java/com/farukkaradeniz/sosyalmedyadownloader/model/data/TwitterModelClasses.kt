@@ -15,7 +15,7 @@ data class Tweet(
         val duration: Long,
         val mediaUrl: String,
         val mediaVariant: List<TweetMediaVariant>
-){
+) {
     val videoDuration: String
         get() {
             var sec: Long = duration / 1000
@@ -25,10 +25,9 @@ data class Tweet(
             min %= 60
             val numberFormat = DecimalFormat("#00")
             val str = "${numberFormat.format(min)}:${numberFormat.format(sec)}"
-            return if (hr==0L) {
+            return if (hr == 0L) {
                 str
-            }
-            else {
+            } else {
                 "${numberFormat.format(hr)}:$str"
             }
         }

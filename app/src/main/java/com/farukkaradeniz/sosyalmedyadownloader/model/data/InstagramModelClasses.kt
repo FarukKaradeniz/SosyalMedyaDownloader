@@ -7,7 +7,6 @@ package com.farukkaradeniz.sosyalmedyadownloader.model.data
  * LinkedIn: linkedin.com/in/FarukKaradeniz
  * Website: farukkaradeniz.com
  */
-// regex for instagram html "p\/(\w*)"   group1
 class InstagramPost(
         val type: String,
         val previewImageUrl: String,

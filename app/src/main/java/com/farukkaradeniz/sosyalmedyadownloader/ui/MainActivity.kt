@@ -1,7 +1,7 @@
 package com.farukkaradeniz.sosyalmedyadownloader.ui
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import com.farukkaradeniz.sosyalmedyadownloader.R
 import com.farukkaradeniz.sosyalmedyadownloader.events.LinkEvent
 import com.farukkaradeniz.sosyalmedyadownloader.ui.fragments.DetailFragment
@@ -11,7 +11,6 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -22,7 +21,6 @@ class MainActivity : AppCompatActivity() {
                     .add(R.id.lay_main_wrapper, InputFragment(), "INPUT")
                     .commit()
         }
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -44,5 +42,4 @@ class MainActivity : AppCompatActivity() {
         EventBus.getDefault().unregister(this)
         super.onStop()
     }
-
 }

@@ -23,8 +23,7 @@ import java.util.*
  * LinkedIn: linkedin.com/in/FarukKaradeniz
  * Website: farukkaradeniz.com
  */
-class DetailPresenterImpl(val view: DetailView, val repository: BaseRepository, val website: String): DetailPresenter {
-    //Composite Subscriber eklenecek, onstart onstop methodlarında subscribe unsubscribe cagirilacak
+class DetailPresenterImpl(val view: DetailView, val repository: BaseRepository, val website: String) : DetailPresenter {
     private val subs: CompositeDisposable = CompositeDisposable()
 
     /**
@@ -33,12 +32,12 @@ class DetailPresenterImpl(val view: DetailView, val repository: BaseRepository, 
      */
     override fun loadMedia(link: String) {
         try {
-            when(website) {
+            when (website) {
                 Constants.TWITTER -> loadTweet(extractTwitterId(link), repository as TweetRepository)
                 Constants.INSTAGRAM -> loadInstagramPost(link)
                 else -> view.showToast("Error Loading Media!")
             }
-        }catch (e: Exception) {
+        } catch (e: Exception) {
             view.showToast(e.localizedMessage)
         }
     }

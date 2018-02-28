@@ -16,11 +16,10 @@ import io.reactivex.disposables.Disposable
  * LinkedIn: linkedin.com/in/FarukKaradeniz
  * Website: farukkaradeniz.com
  */
-fun ImageView.setImage(url: String) {
-    Picasso.with(context)
-            .load(url)
-            .into(this)
-}
+fun ImageView.setImage(url: String) =
+        Picasso.with(context)
+                .load(url)
+                .into(this)
 
 fun Context.isPermissionGranted(permission: String) =
         ActivityCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED

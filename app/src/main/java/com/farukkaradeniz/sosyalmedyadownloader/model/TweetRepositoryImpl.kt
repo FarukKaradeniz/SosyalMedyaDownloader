@@ -5,7 +5,6 @@ import com.farukkaradeniz.sosyalmedyadownloader.api.TwitterApi
 import com.farukkaradeniz.sosyalmedyadownloader.model.data.Tweet
 import com.farukkaradeniz.sosyalmedyadownloader.model.data.TweetMediaVariant
 import io.reactivex.Observable
-import java.net.URL
 
 /**
  * Created by Faruk Karadeniz on 25.01.2018.
@@ -14,12 +13,11 @@ import java.net.URL
  * LinkedIn: linkedin.com/in/FarukKaradeniz
  * Website: farukkaradeniz.com
  */
-class TweetRepositoryImpl(key: String, secret: String): TweetRepository {
+class TweetRepositoryImpl(key: String, secret: String) : TweetRepository {
     private val twitterApi: TwitterApi = TwitterApi(key, secret)
 
     override fun getTweet(id: Long): Observable<Tweet> {
-        return Observable.create {
-            e ->
+        return Observable.create { e ->
             try {
                 val status = twitterApi.getTweetStatus(id)
                 status.extendedMediaEntities.forEach {
@@ -40,8 +38,7 @@ class TweetRepositoryImpl(key: String, secret: String): TweetRepository {
                 if (status.extendedMediaEntities.isEmpty()) {
                     e.onNext(Tweet(status.id, "Gif", -1, "zz", emptyList()))
                 }
-            }
-            catch (error: Exception) {
+            } catch (error: Exception) {
                 Log.d(javaClass.simpleName, error.message)
                 e.onError(Throwable("Input is not valid."))
             }
@@ -61,5 +58,4 @@ class TweetRepositoryImpl(key: String, secret: String): TweetRepository {
             it.onComplete()
         }
     }
-
 }
