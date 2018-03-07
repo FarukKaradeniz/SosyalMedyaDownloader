@@ -9,4 +9,7 @@
     <string name="download">indir</string>
     <string name="empty_text">Giriş metni boş olamaz</string>
     <string name="invalid_input">Geçersiz giriş</string>
+    <string name="download_completed">İndirme tamamlandı</string>
+    <string name="download_failed">İndirme tamamlanamadı</string>
+    <string name="downloading">İndiriliyor</string>
 </resources>

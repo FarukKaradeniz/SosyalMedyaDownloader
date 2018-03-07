@@ -1,6 +1,7 @@
 package com.farukkaradeniz.sosyalmedyadownloader.ui.fragments
 
 import android.Manifest
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.farukkaradeniz.sosyalmedyadownloader.*
+import com.farukkaradeniz.sosyalmedyadownloader.events.MessageEvent
 import com.farukkaradeniz.sosyalmedyadownloader.model.InstagramRepositoryImpl
 import com.farukkaradeniz.sosyalmedyadownloader.model.TweetRepositoryImpl
 import com.farukkaradeniz.sosyalmedyadownloader.model.data.InstagramPost
@@ -16,8 +18,13 @@ import com.farukkaradeniz.sosyalmedyadownloader.model.data.Tweet
 import com.farukkaradeniz.sosyalmedyadownloader.model.data.TweetMediaVariant
 import com.farukkaradeniz.sosyalmedyadownloader.presenters.DetailPresenter
 import com.farukkaradeniz.sosyalmedyadownloader.presenters.DetailPresenterImpl
+import com.farukkaradeniz.sosyalmedyadownloader.service.DownloadService
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_detail.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import java.util.*
 
 /**
  * Created by Faruk Karadeniz on 25.01.2018.
@@ -76,6 +83,16 @@ class DetailFragment : Fragment(), DetailView {
         presenter.loadMedia(mediaURL!!)
     }
 
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
+
     override fun updateTwitterUI(tweet: Tweet, list: List<String?>) {
         img_media.setImage(tweet.mediaUrl)
         when {
@@ -89,7 +106,7 @@ class DetailFragment : Fragment(), DetailView {
                 btn_download.setOnClickListener {
                     if (mediaList.isNotEmpty()) {
                         val position = spn_media_quality.selectedItemPosition
-                        download(mediaList[position].mediaUrl, "mp4")
+                        download(link = mediaList[position].mediaUrl, mediaExtension = "mp4")
                     }
                 }
             }
@@ -112,7 +129,7 @@ class DetailFragment : Fragment(), DetailView {
         img_media.setImage(list[0])
         btn_download.setOnClickListener {
             val link = list[1]
-            download(link, "mp4")
+            download(link = link, mediaExtension = "mp4")
         }
     }
 
@@ -123,12 +140,12 @@ class DetailFragment : Fragment(), DetailView {
         if (post.type == "video") {
             txt_media_type.text = "Video"
             btn_download.setOnClickListener {
-                download(post.videoUrl ?: "", "mp4")
+                download(link = post.videoUrl ?: "", mediaExtension = "mp4")
             }
         } else { //image
             txt_media_type.text = "Photo"
             btn_download.setOnClickListener {
-                download(post.previewImageUrl, post.previewImageUrl.takeLastWhile { it != '.' })
+                download(link = post.previewImageUrl, mediaExtension = post.previewImageUrl.takeLastWhile { it != '.' })
             }
         }
     }
@@ -149,13 +166,22 @@ class DetailFragment : Fragment(), DetailView {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
     }
 
-    private fun download(link: String, mediaExtension: String) {
+    private fun download(name: String = Date().time.toString(), link: String, mediaExtension: String) {
         //Eger kullanici diske yazmak icin izin vermediyse izin istenilir.
         if (!context.isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             context.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, requestId)
         } else { //kullanici diske yazma iznini verdiyse indirme islemi baslatilir
-            presenter.downloadMedia(link, mediaExtension)
-            btn_download.isEnabled = false
+            val downloadService = Intent(activity, DownloadService::class.java)
+            downloadService.apply {
+                putExtra(Constants.NAME, name + "." + mediaExtension)
+                putExtra(Constants.LINK, link)
+            }
+            activity.startService(downloadService)
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(message: MessageEvent) {
+        showToast(message.message)
     }
 }

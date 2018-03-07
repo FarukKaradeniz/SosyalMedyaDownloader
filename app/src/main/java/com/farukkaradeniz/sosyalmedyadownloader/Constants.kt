@@ -15,5 +15,7 @@ class Constants {
         val INSTAGRAM = "instagram"
         val DOWNLOAD_DIRECTORY =
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
+        val NAME = "name"
+        val LINK = "link"
     }
 }

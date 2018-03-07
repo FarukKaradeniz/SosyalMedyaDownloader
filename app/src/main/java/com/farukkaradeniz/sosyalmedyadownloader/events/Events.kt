@@ -9,3 +9,4 @@ package com.farukkaradeniz.sosyalmedyadownloader.events
  */
 class LinkEvent(val website: String, val mediaURL: String)
 class EmptyEvent
+class MessageEvent(val message: String)

@@ -1,8 +1,5 @@
 package com.farukkaradeniz.sosyalmedyadownloader.presenters
 
-import com.downloader.Error
-import com.downloader.OnDownloadListener
-import com.downloader.PRDownloader
 import com.farukkaradeniz.sosyalmedyadownloader.Constants
 import com.farukkaradeniz.sosyalmedyadownloader.addTo
 import com.farukkaradeniz.sosyalmedyadownloader.events.EmptyEvent
@@ -14,7 +11,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import org.greenrobot.eventbus.EventBus
-import java.util.*
 
 /**
  * Created by Faruk Karadeniz on 25.01.2018.
@@ -97,27 +93,6 @@ class DetailPresenterImpl(val view: DetailView, val repository: BaseRepository, 
     override fun extractTwitterId(link: String): Long {
         val regex = """(\d{17,20})""".toRegex()
         return regex.find(link)?.value?.toLong() ?: 0
-    }
-
-    /**
-     * Verilen linkteki mp4 dosyasi indirilir.
-     */
-    override fun downloadMedia(link: String, mediaExtension: String) {
-        val filename = Date().time.toString() + "." + mediaExtension
-        PRDownloader.download(link, Constants.DOWNLOAD_DIRECTORY, filename)
-                .build()
-                .setOnStartOrResumeListener {
-                    view.showToast("Downloading the $filename has started")
-                }
-                .start(object : OnDownloadListener {
-                    override fun onDownloadComplete() {
-                        view.showToast("$filename is downloaded")
-                    }
-
-                    override fun onError(error: Error?) {
-                        view.showToast("Error while downloading the file")
-                    }
-                })
     }
 
     private fun loadInstagramPost(link: String) {
