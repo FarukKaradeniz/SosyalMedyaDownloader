@@ -15,10 +15,10 @@ Uygulama sayesinde Twitter ve Instagram sosyal medya platformlarında paylaşıl
 ## Recent Updates
 - Kopyalanan URL otomatik olarak EditText içerisine yapıştırılıyor.
 - Bildirim çubuğundan indirme takip edilebiliyor.
+- Farklı ekran boyutları için UI güncellemesi
 
 ## Features To Be Added
 - Twitter'dan fotoğraf indirme özelliği 
-- Farklı ekran boyutları için UI güncellemesi
 
 ## Known Issues
 - Boyutu büyük dosyaları indirme sırasında 'Uygulama çalışmayı durdurdu' hatası alınabiliyor.
