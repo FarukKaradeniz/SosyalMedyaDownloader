@@ -3,8 +3,11 @@ package com.farukkaradeniz.sosyalmedyadownloader.service
 import android.app.IntentService
 import android.app.Notification
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.util.Log
 import com.downloader.Error
 import com.downloader.OnDownloadListener
 import com.downloader.PRDownloader
@@ -49,7 +52,10 @@ class DownloadService : IntentService("DownloadService") {
                 }
                 .start(object : OnDownloadListener {
                     override fun onDownloadComplete() {
+                        val intent = PendingIntent
+                                .getActivity(applicationContext, 0, openMedia(fileName), PendingIntent.FLAG_ONE_SHOT)
                         notification.setOngoing(false)
+                                .setContentIntent(intent)
                                 .setProgress(0, 0, false)
                                 .setContentTitle(getString(R.string.download_completed))
                                 .setAutoCancel(true)
@@ -79,4 +85,17 @@ class DownloadService : IntentService("DownloadService") {
                 .setProgress(100, 0, false)
     }
 
+    private fun openMedia(filename: String): Intent {
+        val fileExt = filename.takeLastWhile { it.isLetterOrDigit() }
+        Log.i(javaClass.simpleName, "File name: $filename  File extension: $fileExt")
+        val mimeType = when (fileExt) {
+            "mp4" -> "video/mp4"
+            else -> "image/*"
+        }
+        val mediaPath = "${Constants.DOWNLOAD_DIRECTORY}/$filename"
+        Log.i(javaClass.simpleName, "DIRECTORY: $mediaPath")
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.setDataAndType(Uri.parse(mediaPath), mimeType)
+        return intent
+    }
 }
