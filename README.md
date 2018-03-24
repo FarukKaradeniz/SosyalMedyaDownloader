@@ -16,6 +16,7 @@ Uygulama sayesinde Twitter ve Instagram sosyal medya platformlarında paylaşıl
 - Kopyalanan URL otomatik olarak EditText içerisine yapıştırılıyor.
 - Bildirim çubuğundan indirme takip edilebiliyor.
 - Farklı ekran boyutları için UI güncellemesi
+- İndirme tamamlandıktan sonra bildirim çubuğuna dokunulunca medya dosyası açılıyor
 
 ## Features To Be Added
 - Twitter'dan fotoğraf indirme özelliği 
