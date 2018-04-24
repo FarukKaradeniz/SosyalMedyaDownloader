@@ -1,7 +1,6 @@
 # SosyalMedyaDownloader
 Uygulama sayesinde Twitter ve Instagram sosyal medya platformlarında paylaşılmış olan medya dosyalarını kolaylıkla telefona indirebilirsiniz. 
 
-Download
 ![Download](/assets/download_icon.png)
 
 Şu an için; Twitter platformunda gif ve video medya dosyalarını, Instagram platformunda video ve fotoğraf medya dosyalarını indirilmesi işlemi desteklenmektedir (Twitter'dan fotoğraf inidirilmesi Twitter'ın kendi uygulaması içerisinde zaten mevcuttur). Uygulama Türkçe ve İngilizce dillerini desteklemektedir.
@@ -22,7 +21,7 @@ Download
 - İndirme tamamlandıktan sonra bildirim çubuğuna dokunulunca medya dosyası açılıyor
 
 ## Features To Be Added
-- Twitter'dan fotoğraf indirme özelliği 
+- ~~Twitter'dan fotoğraf indirme özelliği~~ 
 
 ## Known Issues
 - Boyutu büyük dosyaları indirme sırasında 'Uygulama çalışmayı durdurdu' hatası alınabiliyor.
