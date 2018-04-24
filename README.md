@@ -22,7 +22,7 @@ Download
 - İndirme tamamlandıktan sonra bildirim çubuğuna dokunulunca medya dosyası açılıyor
 
 ## Features To Be Added
-- Twitter'dan fotoğraf indirme özelliği 
+- ~~Twitter'dan fotoğraf indirme özelliği~~ 
 
 ## Known Issues
 - Boyutu büyük dosyaları indirme sırasında 'Uygulama çalışmayı durdurdu' hatası alınabiliyor.
