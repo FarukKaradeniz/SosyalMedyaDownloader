@@ -1,7 +1,7 @@
 # SosyalMedyaDownloader
 Uygulama sayesinde Twitter ve Instagram sosyal medya platformlarında paylaşılmış olan medya dosyalarını kolaylıkla telefona indirebilirsiniz. 
 
-![Download](/assets/download_icon.png)
+[DOWNLOAD APK](https://github.com/FarukKaradeniz/SosyalMedyaDownloader/blob/master/apk/SosyalMedyaDownloader.apk)
 
 Şu an için; Twitter platformunda gif ve video medya dosyalarını, Instagram platformunda video ve fotoğraf medya dosyalarını indirilmesi işlemi desteklenmektedir (Twitter'dan fotoğraf inidirilmesi Twitter'ın kendi uygulaması içerisinde zaten mevcuttur). Uygulama Türkçe ve İngilizce dillerini desteklemektedir.
 
